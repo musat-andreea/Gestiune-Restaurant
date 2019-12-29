@@ -1,0 +1,49 @@
+h1 {
+    text-align: center;
+    color: greenyellow;
+    cursor: pointer;
+
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+body {
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.button-play {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 25%;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: yellow;
+    background-color: A9662F;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+
+.button-play:hover {background-color: CE8D56}
+
+.button-play:active {
+    background-color: pink;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+h3 {
+    color: 361900;
+}
