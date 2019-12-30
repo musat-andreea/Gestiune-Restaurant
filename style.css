@@ -1,6 +1,6 @@
 h1 {
     text-align: center;
-    color: greenyellow;
+    color: navajowhite;
     cursor: pointer;
 
 }
@@ -30,13 +30,13 @@ body {
     text-decoration: none;
     outline: none;
     color: yellow;
-    background-color: A9662F;
+    background-color: #A9662F;
     border: none;
     border-radius: 15px;
     box-shadow: 0 9px #999;
 }
 
-.button-play:hover {background-color: CE8D56}
+.button-play:hover {background-color: #CE8D56}
 
 .button-play:active {
     background-color: pink;
@@ -45,5 +45,5 @@ body {
 }
 
 h3 {
-    color: 361900;
+    color: #361900;
 }
