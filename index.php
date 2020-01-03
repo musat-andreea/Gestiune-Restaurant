@@ -25,7 +25,7 @@ echo "Connected successfully";
 </head>
 <body background="images/background.jpg">
 
-    <h1>RESTAURANT</h1>
+    <h1>RESTAURANT AMARILLO</h1>
     <br>
     <button class="button-play"><a href="comenzi.php"><h3>Comanda</h3></a></button>
     <br>
