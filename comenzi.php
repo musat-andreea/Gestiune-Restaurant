@@ -46,6 +46,25 @@ echo "Connected successfully";
         ?>
         </select>
 
+    Selectati angajatul:
+    <select id = "ang">
+
+        <?php
+        $selecteaza_nume_angajat = "SELECT nume, prenume, angajat_id FROM angajati";
+        $result01 = $conn->query($selecteaza_nume_angajat);
+        if (!$result01) {
+            trigger_error('Invalid query: ' . $conn->error);
+        }
+        if($result01->num_rows >0) {
+            while($row01 = $result01->fetch_assoc()) {
+                echo "<option value = \"" . $row01["angajat_id"] . "\">" . $row01["nume"] . " " . $row01["prenume"] . "</option>";
+            }
+        } else {
+            echo "0 results";
+        }
+        ?>
+    </select>
+
         <?php
 
             $categorie_id = "SELECT c.nume AS categ, c.categorie_id AS categ_id FROM categorie C";
@@ -153,9 +172,13 @@ echo "Connected successfully";
 
         var masa = document.getElementById("masa");
         var masa_selectata = masa.options[masa.selectedIndex].value;
+        //
+        var angajat = document.getElementById("ang");
+        var angajat_selectat = angajat.options[angajat.selectedIndex].value;
 
         let arrayPost = {
             "masa":parseInt(masa_selectata),
+            "angajat":parseInt(angajat_selectat),
             "comanda": []
         };
         for (var i = 0; i < orderedProducts.length; i++)

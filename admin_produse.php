@@ -18,6 +18,7 @@ if (isset($_POST["adauga_produs"])) {
     $categorie = $_POST['categorie'];
     $pret = $_POST['pret'];
     $gramaj = $_POST['gramaj'];
+    $imagine = $_POST['imagine'];
 
     $sql_insert_categorie = "INSERT INTO categorie(nume) VALUES('$categorie')";
 
@@ -33,8 +34,8 @@ if (isset($_POST["adauga_produs"])) {
         while($row = $result->fetch_assoc()) {
             // Va intra o singura data in while deoarece avem LIMIT 1
             $categorie_id = $row['categorie_id'];
-            $sql_insert_meniu = "INSERT INTO meniu(categorie_id, nume, pret, gramaj)
-                                    VALUES ($categorie_id, '$nume', $pret, $gramaj)";
+            $sql_insert_meniu = "INSERT INTO meniu(categorie_id, nume, pret, gramaj, imagine)
+                                    VALUES ($categorie_id, '$nume', $pret, $gramaj, '$imagine')";
 
             if ($conn->query($sql_insert_meniu) === TRUE) {
                 echo "New record created successfully in menu";
@@ -52,8 +53,8 @@ if (isset($_POST["adauga_produs"])) {
             while($row = $result->fetch_assoc()) {
                 // Va intra o singura data in while deoarece avem LIMIT 1
                 $categorie_id = $row['categorie_id'];
-                $sql_insert_meniu = "INSERT INTO meniu(categorie_id, nume, pret, gramaj)
-                                    VALUES ($categorie_id, '$nume', $pret, $gramaj)";
+                $sql_insert_meniu = "INSERT INTO meniu(categorie_id, nume, pret, gramaj, imagine)
+                                    VALUES ($categorie_id, '$nume', $pret, $gramaj, '$imagine')";
 
                 if ($conn->query($sql_insert_meniu) === TRUE) {
                     echo "New record created successfully in menu";

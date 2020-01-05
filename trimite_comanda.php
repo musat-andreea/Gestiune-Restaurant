@@ -16,10 +16,10 @@ echo "Connected successfully";
 // luarea json ului din request ul de tip POST si il interpretam ca array asociativ assoc
 $data = json_decode(file_get_contents('php://input'), true);
 $masa = $data['masa'];
-
+$angajat = $data['angajat'];
 $data = $data['comanda'];
 
-$insert_coamanda = "INSERT INTO comanda(masa_id) VALUES ($masa) ";
+$insert_coamanda = "INSERT INTO comanda(masa_id, angajat_id) VALUES ($masa, '$angajat') ";
 if ($conn->query($insert_coamanda) === TRUE) {
     echo "New record created successfully <br>";
 } else {

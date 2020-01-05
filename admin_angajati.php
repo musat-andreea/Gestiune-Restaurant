@@ -41,6 +41,27 @@ else if (isset($_POST["sterge_angajat"])) {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
 }
+else if (isset($_POST["modifica_angajat"])) {
+    $nume = $_POST['nume'];
+    $prenume = $_POST['prenume'];
+    $cnp = $_POST['cnp'];
+    $data_angajarii = $_POST['data_angajarii'];
+    $functie = $_POST['functie'];
+    $salariu = $_POST['salariu'];
+    $angajat_id = $_POST['angajat_id'];
+
+    $sql = "UPDATE angajati SET nume = '$nume', prenume = '$prenume', cnp = '$cnp', data_angajarii = '$data_angajarii', functie = '$functie', salariu = $salariu WHERE angajat_id = $angajat_id";
+
+    if ($conn->query($sql) === TRUE) {
+        echo "New record created successfully";
+        header("Location: admin.php");
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+}
+
+
+
 
 $conn->close();
 ?>
