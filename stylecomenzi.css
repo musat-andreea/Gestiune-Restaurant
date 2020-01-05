@@ -23,3 +23,12 @@ h1 {
     box-shadow: 4px 4px 5px #888888;
     margin-top: 10px;
 }
+
+
+.cart
+{
+    position: sticky;
+    top: 100px;
+
+    float: right;
+}

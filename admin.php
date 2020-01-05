@@ -179,7 +179,7 @@ echo "Connected successfully";
                 <th>Data si ora comenzii</th>
                 <th>Produse</th>
                 <th>Nr bucati</th>
-                <th>Actiuni</th>
+                <th>Sterge comanda</th>
             </tr>
             </thead>
 
@@ -194,7 +194,7 @@ echo "Connected successfully";
                     echo "<td>" . $row["data"] . "</td>";
                     echo "<td>" . $row["nume"] . "</td>";
                     echo "<td>" . $row["nr_bucati"] . "</td>";
-                    echo "<td>" . "<input type = 'submit' class = 'btn waves-effect waves-light' name = 'stergere_comanda' value = '" . $row["comanda_id"] .  "'></input> </td>";
+                    echo "<td>" . "<input type = 'submit' class = 'btn' name = 'stergere_comanda' value = '" . $row["comanda_id"] .  "'> Sterge </input> </td>";
                     echo "</tr>";
                 }
             } else {
