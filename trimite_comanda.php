@@ -20,6 +20,20 @@ $masa = $data['masa'];
 $angajat = $data['angajat'];
 $data = $data['comanda'];
 
+$sql12 = "SELECT masa_id FROM masa WHERE nr_masa = $masa LIMIT 1";
+$result12 = $conn->query($sql12);
+$masa_id = -1;
+if ($result12->num_rows > 0) {
+    while ($row12 = $result12->fetch_assoc()) {
+        $masa_id = $row12['masa_id'];
+    }
+} else {
+    echo "0 results";
+}
+
+$masa = $masa_id;
+
+
 $insert_coamanda = "INSERT INTO comanda(masa_id, angajat_id) VALUES ($masa, '$angajat') ";
 if ($conn->query($insert_coamanda) === TRUE) {
     echo "New record created successfully <br>";

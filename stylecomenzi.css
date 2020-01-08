@@ -28,7 +28,6 @@ h1 {
 figcaption {
     text-align: center;
     color: black;
-    margin-left: 40px;
     -webkit-text-stroke: 1px black;
     font: italic small-caps bold 20px Georgia, sans-serif;
 }

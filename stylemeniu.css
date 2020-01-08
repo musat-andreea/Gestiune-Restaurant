@@ -28,7 +28,6 @@ h5 {
 figcaption {
     text-align: center;
     color: white;
-    margin-left: 40px;
     -webkit-text-stroke: 1px white;
     font: italic small-caps bold 20px Georgia, sans-serif;
 }

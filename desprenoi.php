@@ -146,22 +146,19 @@ if ($result3->num_rows > 0) {
 <br>
 <h5>~ cea mai recenta comanda de la fiecare masa</h5>
 <?php
-$sql4 = "select c.comanda_id as nr, m.nr_masa as masa, c.data as dt
-from comanda c
-inner join (select masa_id, max(data) as datacom
+$sql4 = "select c.masa_id, m.nr_masa AS masa, max(data) as datacom
            from comanda c
-           group by masa_id) s 
-           on c.masa_id=s.masa_id and c.data=s.datacom join masa m on c.masa_id=m.masa_id
-
+           JOIN masa m ON (m.masa_id = c.masa_id)
+           group by m.masa_id, m.nr_masa
 ";
+
 $result4 = $conn->query($sql4);
 if ($result4->num_rows > 0) {
     while ($row4 = $result4->fetch_assoc()) {
         echo "<tr>";
         echo "<br>";
         echo "<td><h5>Masa " . $row4["masa"] . "</h5></td>";
-        echo "<td><h5>Nr Comenzii " . $row4["nr"] . "</h5></td>";
-        echo "<td><h5>Data si ora:" . $row4["dt"] . "</h5></td>";
+        echo "<td><h5>Data si ora:" . $row4["datacom"] . "</h5></td>";
         echo "</tr>";
     }
 } else {
@@ -190,6 +187,57 @@ if ($result5->num_rows > 0) {
         echo "<br>";
         echo "<td><h5>Ziua " . $row5["ziua"] . "</h5></td>";
         echo "<td><h5>Numarul comenzilor: " . $row5["cmax"] . "</h5></td>";
+        echo "</tr>";
+    }
+} else {
+    echo "0 results";
+}
+?>
+<br> <br>
+<h1>Produsul preferat</h1>
+<br>
+<h5>~ produsul cu cele mai multe comenzi</h5>
+<?php
+$sql = "select m.nume as nume, m.imagine as img, c.nume as categ , sum(nr_bucati)
+from meniu m inner join categorie c on (m.categorie_id = c.categorie_id)
+inner join detalii_comanda d on d.produs_id = m.produs_id
+group by m.nume, m.imagine
+having sum(nr_bucati) >= all (select sum(nr_bucati) from meniu m inner join categorie c on (m.categorie_id = c.categorie_id)
+inner join detalii_comanda d on d.produs_id = m.produs_id
+group by m.nume, m.imagine)";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        echo "<tr>";
+        echo "<td><h5>" . $row["nume"] . "</h5></td>";
+        echo "<td><h5>" . $row["categ"] . "</h5></td>";
+        echo "<td><img src = \"images/" . $row["img"] . "\"></td>";
+        echo "</tr>";
+    }
+} else {
+    echo "0 results";
+}
+?>
+
+<br> <br>
+<h1>Comanda lunii</h1>
+<br>
+<h5>~ cea mai mare comanda(ca sumă)</h5>
+<?php
+$sql = "select m.nume as nume, m.imagine as img, c.nume as categ , sum(nr_bucati)
+from meniu m inner join categorie c on (m.categorie_id = c.categorie_id)
+inner join detalii_comanda d on d.produs_id = m.produs_id
+group by m.nume, m.imagine
+having sum(nr_bucati) >= all (select sum(nr_bucati) from meniu m inner join categorie c on (m.categorie_id = c.categorie_id)
+inner join detalii_comanda d on d.produs_id = m.produs_id
+group by m.nume, m.imagine)";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        echo "<tr>";
+        echo "<td><h5>" . $row["nume"] . "</h5></td>";
+        echo "<td><h5>" . $row["categ"] . "</h5></td>";
+        echo "<td><img src = \"images/" . $row["img"] . "\"></td>";
         echo "</tr>";
     }
 } else {
