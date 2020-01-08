@@ -1,19 +1,20 @@
+<!--conectarea bazei de date pe serverul local-->
 <?php
 $servername = "localhost";
 $username = "root";
 $password = "";
 $database = "restaurant";
 
-// Create connection
+// crearea conexiunii
 $conn = new mysqli($servername, $username, $password, $database);
 
-// Check connection
+// verificarea conexiunii
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 echo "Connected successfully";
 
-// luarea json ului din request ul de tip POST si il interpretam ca array asociativ assoc
+// luam json ului din request ul de tip POST si il interpretam ca array asociativ assoc
 $data = json_decode(file_get_contents('php://input'), true);
 $masa = $data['masa'];
 $angajat = $data['angajat'];

@@ -1,3 +1,4 @@
+<!--conectarea bazei de date pe serverul local-->
 <?php
 $servername = "localhost";
 $username = "root";
@@ -27,6 +28,7 @@ echo "Connected successfully";
 <div class = "cart"><b> TOTAL DE PLATA:</b> <span id = "to_pay"> 0 </span></div>
 
 <form method = "post" id = "trimite_comanda">
+    <!-- selectez masa pentru care se preia comanda -->
         Selectati masa:
         <select id = "masa">
 
@@ -45,7 +47,7 @@ echo "Connected successfully";
         }
         ?>
         </select>
-
+    <!-- selectez angajatul care preia comanda -->
     Selectati angajatul:
     <select id = "ang">
 
@@ -66,7 +68,7 @@ echo "Connected successfully";
     </select>
 
         <?php
-
+            //afisarea categoriilor cu produsele ce apartin de fiecare categorie
             $categorie_id = "SELECT c.nume AS categ, c.categorie_id AS categ_id FROM categorie C";
             $result1 = $conn->query($categorie_id);
             if (!$result1) {
@@ -167,7 +169,7 @@ echo "Connected successfully";
     //adaug un eveniment pe form-ul care imi adauga comanda
     form.addEventListener('submit', function (event)    {
         event.preventDefault(); //nu se mai executa evenimentul default de pe form(action)
-        //luam produsele bifate
+        //iau produsele bifate
         var orderedProducts = document.querySelectorAll("input[type=checkbox]:checked");
 
         var masa = document.getElementById("masa");

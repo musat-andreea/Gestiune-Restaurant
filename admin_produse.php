@@ -1,13 +1,14 @@
+<!--conectarea bazei de date pe serverul local-->
 <?php
 $servername = "localhost";
 $username = "root";
 $password = "";
 $database = "restaurant";
 
-// Create connection
+// crearea conexiunii
 $conn = new mysqli($servername, $username, $password, $database);
 
-// Check connection
+// verificarea conexiunii
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
@@ -20,8 +21,11 @@ if (isset($_POST["adauga_produs"])) {
     $gramaj = $_POST['gramaj'];
     $imagine = $_POST['imagine'];
 
+    //am pregatit un query pentru a adauga o noua categorie in cazul in care nu exista
     $sql_insert_categorie = "INSERT INTO categorie(nume) VALUES('$categorie')";
 
+    //verific daca categoria produsului exista in baza de date
+    //am pus LIMIT 1 sa se opreasca imediat ce a gasit categoria
     $sql_check_categorie = "SELECT categorie_id FROM categorie WHERE nume = '$categorie' LIMIT 1";
 
     $result = $conn->query($sql_check_categorie);
@@ -29,7 +33,8 @@ if (isset($_POST["adauga_produs"])) {
     if (!$result) {
         trigger_error('Invalid query: ' . $conn->error);
     }
-
+    //daca exista categoria produsului, vom adauga produsul
+    //daca nu exista categoria, o vom crea apoi vom adauga produsul
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
             // Va intra o singura data in while deoarece avem LIMIT 1

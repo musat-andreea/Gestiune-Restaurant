@@ -7,6 +7,7 @@ img {
 
 
 
+
 h1 {
     color: black;
     cursor: pointer;
@@ -24,6 +25,13 @@ h1 {
     margin-top: 10px;
 }
 
+figcaption {
+    text-align: center;
+    color: black;
+    margin-left: 40px;
+    -webkit-text-stroke: 1px black;
+    font: italic small-caps bold 20px Georgia, sans-serif;
+}
 
 .cart
 {

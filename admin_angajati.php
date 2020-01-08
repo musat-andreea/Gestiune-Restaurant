@@ -1,19 +1,25 @@
+<!--conectarea bazei de date pe serverul local-->
 <?php
 $servername = "localhost";
 $username = "root";
 $password = "";
 $database = "restaurant";
 
-// Create connection
+// crearea conexiunii
 $conn = new mysqli($servername, $username, $password, $database);
 
-// Check connection
+// verificarea conexiunii
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 echo "Connected successfully";
 
+//verific de la ce buton de submit a venit request-ul post
+//si decid ce actiune execut
+
 if (isset($_POST["adauga_angajat"])) {
+    //variabilele in care retin datele din request
+    //si care trebuie introduse in baza de date
     $nume = $_POST['nume'];
     $prenume = $_POST['prenume'];
     $cnp = $_POST['cnp'];
@@ -32,6 +38,7 @@ VALUES ('$nume', '$prenume', '$cnp', '$data_angajarii', '$functie', $salariu)";
     }
 }
 else if (isset($_POST["sterge_angajat"])) {
+    //variabile in care retin datele din request pentru a strege angajatul din baza de date
     $cnp = $_POST['cnp'];
     $sql = "DELETE FROM angajati WHERE cnp='$cnp'";
     if ($conn->query($sql) === TRUE) {
@@ -59,8 +66,6 @@ else if (isset($_POST["modifica_angajat"])) {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
 }
-
-
 
 
 $conn->close();

@@ -1,13 +1,14 @@
+<!--conectarea bazei de date pe serverul local-->
 <?php
 $servername = "localhost";
 $username = "root";
 $password = "";
 $database = "restaurant";
 
-// Create connection
+// crearea conexiunii
 $conn = new mysqli($servername, $username, $password, $database);
 
-// Check connection
+// verificarea conexiunii
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
@@ -16,6 +17,7 @@ echo "Connected successfully";
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>
         Administrator
@@ -27,16 +29,18 @@ echo "Connected successfully";
             integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
             crossorigin="anonymous"></script>
 
-    <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </head>
+
 <body>
+<!--intoarcere la paginile aplicatiei -->
 <ul id="dropdown1" class="dropdown-content">
     <li><a href="index.php">Restaurant</a></li>
     <li><a href="meniu.php">Meniu</a></li>
     <li class="divider"></li>
     <li><a href="comenzi.php">Comenzi</a></li>
 </ul>
+
 <nav>
     <div class="nav-wrapper">
         <a href="/" class="brand-logo">Restaurant Amarillo</a>
@@ -48,7 +52,6 @@ echo "Connected successfully";
 </nav>
 
 <div class="container">
-    <!-- Page Content goes here -->
     <div class="row">
         <div class="col s12">
             <center><H1> Administrarea angajatilor </H1></center>
@@ -56,6 +59,7 @@ echo "Connected successfully";
     </div>
     <div class="row">
         <div class="col s12">
+            <!--lista cu toti angajatii restaurantului sub forma de tabel dupa datele acestora-->
             <h2> Lista angajati: </h2>
         </div>
         <table class="highlight">
@@ -73,6 +77,7 @@ echo "Connected successfully";
             </thead>
 
             <tbody id="faculties-table-content">
+            <!--selectarea tuturor datelor din baza de date ce trebuie afisate in tabelul cu lista angajatilor-->
             <?php
             $sql = "SELECT angajat_id, nume, prenume, cnp, data_angajarii, functie, salariu FROM angajati";
             $result = $conn->query($sql);
@@ -87,6 +92,7 @@ echo "Connected successfully";
                     echo "<td> <input type = 'text' name = 'functie' value = '" . $row["functie"] . "'></td>";
                     echo "<td> <input type = 'number' name = 'salariu' value = '" . $row["salariu"] . "'> </td>";
                     echo "<input type ='hidden' name = 'angajat_id' value = '" . $row["angajat_id"] . "'>";
+                    /*buton pentru confirmarea modificarilor datelor*/
                     echo "<td> <input type = 'submit' name = 'modifica_angajat' value = 'Modifica'> </td>";
                     echo "</tr>";
                     echo "</form>";
@@ -99,6 +105,7 @@ echo "Connected successfully";
         </table>
     </div>
     <div class="col s12">
+        <!--campuri ce trebuie completate pentru a fi introduse in baza de date-->
         <h2> Adauga angajat </h2>
         <form method="POST" id="add_exam" action="admin_angajati.php">
             <input type="text" placeholder="Nume angajat" name="nume"></input>
@@ -110,7 +117,7 @@ echo "Connected successfully";
             <input type="submit" name="adauga_angajat" class="btn waves-effect waves-light" value="Adauga">
         </form>
     </div>
-
+    <!-- campurile ce trebuie introduse pentru a sterge datele unui angajat din baza de date -->
     <div class="col s12">
         <h2> Sterge angajat </h2>
         <form method="POST" action="admin_angajati.php">
@@ -120,7 +127,7 @@ echo "Connected successfully";
             <input type="submit" name="sterge_angajat" class="btn waves-effect waves-light" value="Sterge">
         </form>
     </div>
-
+    <!-- afisarea produselor din meniu sub forma de tabel -->
 <div class="row">
     <div class="col s12">
         <h2> Lista produselor din meniu: </h2>
@@ -136,12 +143,15 @@ echo "Connected successfully";
         </thead>
 
         <tbody id="faculties-table-content">
+        <!-- selectarea datelor din baza de date ce trebuie introduse in tabelul cu produse dupa categorie -->
         <?php
-        $sql1 = "SELECT m.nume AS nume_produs_meniu, c.nume AS nume_categorie, pret, gramaj FROM meniu m, categorie c WHERE m.categorie_id = c.categorie_id";
+        $sql1 = "SELECT m.nume AS nume_produs_meniu, c.nume AS nume_categorie, pret, gramaj FROM meniu m INNER JOIN categorie c ON m.categorie_id = c.categorie_id";
+        //stochez rezultatul querry-ului sql1 in result
         $result = $conn->query($sql1);
         if (!$result) {
             trigger_error('Invalid query: ' . $conn->error);
         }
+        //parsez fiecare linie din rezultat si adaug datele
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 echo "<tr>";
@@ -160,6 +170,7 @@ echo "Connected successfully";
 </div>
 <div class="col s12">
     <h2> Adauga produs </h2>
+    <!-- datele ce trebuie introduse pentru a adauga un produs in baza de date -->
     <form method="POST" action="admin_produse.php">
         <input type="text" placeholder="Denumire produs" name="nume"></input>
         <input type="text" placeholder="Categorie" name="categorie"></input>
@@ -171,6 +182,7 @@ echo "Connected successfully";
 </div>
 
 <div class="col s12">
+    <!-- datele ce trebuie introduse pentru a sterge un produs din baza de date -->
     <h2> Sterge produs </h2>
     <form method="POST" action="admin_produse.php">
         <input type="text" placeholder="Denumire produs" name="nume"></input>
@@ -178,7 +190,7 @@ echo "Connected successfully";
         <input type="submit" name="sterge_produs" class="btn waves-effect waves-light" value="Sterge">
     </form>
 </div>
-
+<!-- tabel pentru mese precizand numarul mesei si starea in care se afla masa -->
 <div class="row">
     <div class="col s12">
         <h2> Starea meselor: </h2>
@@ -209,7 +221,7 @@ echo "Connected successfully";
         </tbody>
     </table>
 </div>
-
+    <!-- campurile ce trebuie completate pentru a modifica starea meselor -->
 <div class="col s12">
     <h2>Modifica starea mesei </h2>
     <form method="POST" action="admin_masa.php">
@@ -219,7 +231,7 @@ echo "Connected successfully";
     </form>
 </div>
 
-
+    <!-- lista comenzilor sub forma de tabel si cu buton de sterge comanda -->
 <div class="row">
     <div class="col s12">
         <h2> Lista comenzilor: </h2>
@@ -238,7 +250,9 @@ echo "Connected successfully";
         <form method="post" action="admin_comenzi.php">
             <?php
             $sql = "SELECT c.comanda_id AS comanda_id, data, nume, nr_bucati FROM comanda c, meniu m, detalii_comanda d WHERE c.comanda_id = d.comanda_id AND d.produs_id = m.produs_id";
+            //stochez rezultatul querry-ului sql in result
             $result = $conn->query($sql);
+            //parsez fiecare linie din rezultat si adaug datele
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     echo "<tr>";
@@ -264,7 +278,7 @@ echo "Connected successfully";
 
 </div>
 
-
+<!-- pentru partea de dropdown in navbar -->
 <script>
     $(document).ready(function () {
         $(".dropdown-trigger").dropdown();
