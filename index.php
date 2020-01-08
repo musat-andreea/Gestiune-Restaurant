@@ -31,6 +31,6 @@ echo "Connected successfully";
     <br>
     <button class="button-play"><a href="meniu.php"><h3>Meniu</h3></a></button>
     <br>
-    <button class="button-play"><a href="rezervari.php"><h3>Rezervare</h3></a></button>
+    <button class="button-play"><a href="desprenoi.php"><h3>Despre noi</h3></a></button>
 </body>
 </html>
