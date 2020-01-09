@@ -220,24 +220,38 @@ if ($result->num_rows > 0) {
 ?>
 
 <br> <br>
-<h1>Comanda lunii</h1>
+<h1>Angajati</h1>
 <br>
-<h5>~ cea mai mare comanda(ca sumă)</h5>
+<h5>~ angajatii ce au preluat mai mult de 3 comenzi</h5>
 <?php
-$sql = "select m.nume as nume, m.imagine as img, c.nume as categ , sum(nr_bucati)
-from meniu m inner join categorie c on (m.categorie_id = c.categorie_id)
-inner join detalii_comanda d on d.produs_id = m.produs_id
-group by m.nume, m.imagine
-having sum(nr_bucati) >= all (select sum(nr_bucati) from meniu m inner join categorie c on (m.categorie_id = c.categorie_id)
-inner join detalii_comanda d on d.produs_id = m.produs_id
-group by m.nume, m.imagine)";
+$sql = "select a.nume as nume, a.prenume as prenume, count(*) as Nr_comenzi from angajati a 
+inner join comanda c on a.angajat_id=c.angajat_id
+group by a.nume, a.prenume
+having count(*)>3";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         echo "<tr>";
-        echo "<td><h5>" . $row["nume"] . "</h5></td>";
-        echo "<td><h5>" . $row["categ"] . "</h5></td>";
-        echo "<td><img src = \"images/" . $row["img"] . "\"></td>";
+        echo "<td><h5>" . $row["nume"] . " " . $row["prenume"] . ": " . $row["Nr_comenzi"] . " comenzi" . "</h5></td>";
+        echo "</tr>";
+    }
+} else {
+    echo "0 results";
+}
+?>
+
+<br> <br>
+<h1>Angajati</h1>
+<br>
+<h5>~ angajatii cu salariu cel mai mare dupa functia pe care o detin</h5>
+<?php
+$sql = "SELECT a.nume as nume,a. prenume as prenume, a.salariu as sal from angajati a 
+where a.salariu in (select max(n.salariu) from angajati n where a.functie = n.functie group by n.functie)";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        echo "<tr>";
+        echo "<td><h5>" . $row["nume"] . " " . $row["prenume"] . ": " . $row["sal"] . " LEI" . "</h5></td>";
         echo "</tr>";
     }
 } else {
